@@ -37,3 +37,24 @@ Toda la infraestructura de software se levanta utilizando Docker Compose.
    ```bash
    git clone [https://github.com/tu-usuario/homelab-health-dashboard.git](https://github.com/tu-usuario/homelab-health-dashboard.git)
    cd homelab-health-dashboard
+   ```
+2. Configura las variables de entorno basándote en el archivo de ejemplo:
+   ```Bash
+   cp .env.example .env # Edita el archivo .env con tus credenciales
+   ```
+3. Levanta los servicios:
+   ```Bash
+   docker-compose up -d
+   ```
+## Próximos Pasos (Roadmap)
+*  Implementar sensor  **SGP41** (Sensor para medir la calidad de aire (VOC y NOx)) con comunicación I2C, esto para poder distingue eventos de combustión de químicos de limpieza.
+   
+* Implementar sensor  **SCD40** (Sensor medidor del CO2) con comunicación I2C, esto para poder medir directa por NDIR (infrarrojo no dispersivo).
+  
+* Implementar sensor  **PMS5003** (Material particulado (PM1.0/2.5/10)) con comunicación  UART, esto para poder medir polvo físico mediante láser y ventilador dedicado (5V).
+  
+* Remapeo de Hardware UART: El ESP32S3 expone por defecto un solo puerto UART por hardware. Para poder usar el PZEM-004T y el PMS5003 simultáneamente (sin usar el UART0 de flasheo), se necesita un remapeo de pines GPIO por software, garantizando lecturas estables de ambos sensores al mismo tiempo.
+
+* Implementación de **KVM** a nivel de hardware (Sipeed NanoKVM) para acceso a BIOS/UEFI.
+
+* Segmentación estricta de red IoT mediante VLANs (802.1Q) o Bridges Virtuales dedicados en Proxmox. 
